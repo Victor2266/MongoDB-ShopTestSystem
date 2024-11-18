@@ -15,6 +15,7 @@ const Dashboard = () => {
   const router = useRouter();
   const [users, setUsers] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [error, setError] = useState(null);
   const [newUser, setNewUser] = useState({ name: '', email: '', points: 0 });
   const [newTransaction, setNewTransaction] = useState({
     userId: '',
@@ -51,8 +52,12 @@ const Dashboard = () => {
         body: JSON.stringify(newUser),
       });
       if (res.ok) {
+        //Clears the new user variable
         setNewUser({ name: '', email: '', points: 0 });
         fetchUsers();
+        setError(null);
+      } else {
+        throw new Error(`HTTP error. Failed to add user, User probably exists. status: ${res.status}`);
       }
     } catch (error) {
       console.error('Error adding user:', error);
@@ -263,6 +268,7 @@ const Dashboard = () => {
                       required
                     />
                   </div>
+                  {error && (<p className="text-red-500">{error}</p>)}
                   <Button type="submit">Add User</Button>
                 </form>
               </CardContent>
