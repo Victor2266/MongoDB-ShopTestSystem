@@ -11,6 +11,7 @@ export async function GET(req) {
 export async function POST(req) {
   await dbConnect();
   const body = await req.json();
+  // Destructure userId, points, and type from the request body
   const { userId, points, type } = body;
 
   try {
