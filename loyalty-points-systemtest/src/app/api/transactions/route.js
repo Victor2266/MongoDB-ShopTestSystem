@@ -21,10 +21,10 @@ export async function POST(req) {
   await dbConnect();
   const body = await req.json();
   // Destructure userId, points, and type from the request body
-  const { userId, points, type } = body;
+  const { userId, points, type, description } = body;
 
   try {
-    const transaction = new Transaction({ userId, points, type });
+    const transaction = new Transaction(body);
     await transaction.save();
 
     const user = await User.findById(userId); //Find the corresponding user
