@@ -308,7 +308,8 @@ const Dashboard = () => {
                     >
                       <option value="">Select Type</option>
                       <option value="purchase">Purchase</option>
-                      <option value="reward">Reward</option>
+                      <option value="subscription">Subscription</option>
+                      <option value="reward_redemption">Reward Redemption</option>
                       <option value="bonus">Bonus</option>
                       <option value="event">Event</option>
                     </select>

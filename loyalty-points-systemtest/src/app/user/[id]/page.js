@@ -50,8 +50,8 @@ export default function UserRewards({ params }) {
       if (response.ok) {
         // Refresh user data and transactions
         const [updatedUser, updatedTransactions] = await Promise.all([
-          fetch(`/api/users/${params.id}`).then(res => res.json()),
-          fetch(`/api/transactions?userId=${params.id}`).then(res => res.json())
+          fetch(`/api/users/${paramsRef.id}`).then(res => res.json()),
+          fetch(`/api/transactions?userId=${paramsRef.id}`).then(res => res.json())
         ]);
         setUser(updatedUser);
         setTransactions(updatedTransactions);
