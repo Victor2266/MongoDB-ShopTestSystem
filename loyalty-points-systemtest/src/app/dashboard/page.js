@@ -16,7 +16,14 @@ const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState(null);
-  const [newUser, setNewUser] = useState({ name: '', email: '', points: 0 });
+  
+  const [newUser, setNewUser] = useState({ 
+    name: '', 
+    email: '', 
+    points: 0, 
+    joinDate: Date.now() 
+  });
+
   const [newTransaction, setNewTransaction] = useState({
     userId: '',
     type: '',
@@ -43,6 +50,7 @@ const Dashboard = () => {
 
   const handleAddUser = async (e) => {
     e.preventDefault();
+    newUser.joinDate = Date.now();
     try {
       const res = await fetch('/api/users', {
         method: 'POST',
@@ -53,10 +61,11 @@ const Dashboard = () => {
       });
       if (res.ok) {
         //Clears the new user variable
-        setNewUser({ name: '', email: '', points: 0 });
+        setNewUser({ name: '', email: '', points: 0, joinDate: Date.now() });
         fetchUsers();
         setError(null);
       } else {
+        setError("Failed to add user, User probably exists.");
         throw new Error(`HTTP error. Failed to add user, User probably exists. status: ${res.status}`);
       }
     } catch (error) {
