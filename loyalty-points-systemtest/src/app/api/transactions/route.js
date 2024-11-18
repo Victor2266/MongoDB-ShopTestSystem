@@ -17,13 +17,13 @@ export async function POST(req) {
     const transaction = new Transaction({ userId, points, type });
     await transaction.save();
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId); //Find the corresponding user
     if (!user) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }
 
-    user.points += points;
-    await user.save();
+    user.points += points;  //Update the user points 
+    await user.save();      //Save the user document with the new points
 
     return new Response(JSON.stringify(transaction), { status: 201 });
   } catch (error) {
