@@ -9,10 +9,8 @@ import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Gift, Award, Users, Calendar, Plus, UserPlus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 const Dashboard = () => {
-  const router = useRouter();
   const [users, setUsers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [newUser, setNewUser] = useState({ name: '', email: '', points: 0 });
