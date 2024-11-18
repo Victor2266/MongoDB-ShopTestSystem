@@ -9,8 +9,10 @@ import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Gift, Award, Users, Calendar, Plus, UserPlus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const Dashboard = () => {
+  const router = useRouter();
   const [users, setUsers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [newUser, setNewUser] = useState({ name: '', email: '', points: 0 });
@@ -131,40 +133,51 @@ const Dashboard = () => {
         </TabsContent>
 
         <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>User List</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left p-2">Name</th>
-                      <th className="text-left p-2">Email</th>
-                      <th className="text-left p-2">Points</th>
-                      <th className="text-left p-2">Join Date</th>
+        <Card>
+          <CardHeader>
+            <CardTitle>User List</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-2">Name</th>
+                    <th className="text-left p-2">Email</th>
+                    <th className="text-left p-2">Points</th>
+                    <th className="text-left p-2">Join Date</th>
+                    <th className="text-left p-2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user._id} className="border-b">
+                      <td className="p-2">{user.name}</td>
+                      <td className="p-2">{user.email}</td>
+                      <td className="p-2">
+                        <Badge variant="secondary">{user.points}</Badge>
+                      </td>
+                      <td className="p-2">
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="p-2">
+                        <Button
+                          variant="outline"
+                          onClick={() => router.push(`/user/${user._id}`)}
+                          className="flex items-center gap-2"
+                        >
+                          <Gift className="h-4 w-4" />
+                          Rewards
+                        </Button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {users.map((user) => (
-                      <tr key={user._id} className="border-b">
-                        <td className="p-2">{user.name}</td>
-                        <td className="p-2">{user.email}</td>
-                        <td className="p-2">
-                          <Badge variant="secondary">{user.points}</Badge>
-                        </td>
-                        <td className="p-2">
-                          {new Date(user.joinDate).toLocaleDateString()}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
 
         <TabsContent value="transactions">
           <Card>
