@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 
 // Get the MongoDB connection string
-const MONGO_URI = mongodb+srv://AlphaBiz:loyalty@bizpoints.2hbno.mongodb.net/?retryWrites=true&w=majority&appName=BizPoints;
+const MONGO_URI = "mongodb+srv://AlphaBiz:loyalty@bizpoints.2hbno.mongodb.net/?retryWrites=true&w=majority&appName=BizPoints";
 
 // If the connection string is not defined, throw an error
 if (!MONGO_URI) {
