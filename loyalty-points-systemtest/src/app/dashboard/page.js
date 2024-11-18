@@ -155,7 +155,7 @@ const Dashboard = () => {
                           <Badge variant="secondary">{user.points}</Badge>
                         </td>
                         <td className="p-2">
-                          {new Date(user.createdAt).toLocaleDateString()}
+                          {new Date(user.joinDate).toLocaleDateString()}
                         </td>
                       </tr>
                     ))}
