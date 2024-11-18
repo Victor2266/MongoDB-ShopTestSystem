@@ -10,6 +10,8 @@ const UserSchema = new mongoose.Schema({
   points: { type: Number, default: 0 },
   // Array of transaction references
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transaction" }],
+  // User's join date
+  joinDate: { type: Date, default: Date.now }
 });
 
 // Export the User model, create it if it doesn't already exist
