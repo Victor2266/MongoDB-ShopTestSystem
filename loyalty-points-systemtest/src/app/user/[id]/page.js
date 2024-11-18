@@ -17,11 +17,12 @@ export default function UserRewards({ params }) {
     { id: 3, name: 'Business Consultation', points: 2000, description: '1-hour business consultation' },
   ]);
 
+  const paramsRef = React.use(params);
   useEffect(() => {
-    fetch(`/api/users/${params.id}`)
+    fetch(`/api/users/${paramsRef.id}`)
       .then((res) => res.json())
       .then(setUser);
-  }, [params.id]);
+  }, [paramsRef.id]);
 
   const handleRedeemReward = async (rewardId) => {
     try {
