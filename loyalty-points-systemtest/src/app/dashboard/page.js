@@ -316,8 +316,9 @@ const Dashboard = () => {
                       id="points"
                       type="number"
                       value={newTransaction.points}
-                      onChange={(e) => setNewTransaction({ ...newTransaction, points: parseInt(e.target.value) })}
+                      onChange={(e) => setNewTransaction({ ...newTransaction, points: e.target.value })}
                       required
+                      step="any"
                     />
                   </div>
                   <div className="space-y-2">
