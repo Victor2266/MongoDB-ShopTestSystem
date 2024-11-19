@@ -15,13 +15,10 @@ const Dashboard = () => {
   const router = useRouter();
   const [users, setUsers] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [newUser, setNewUser] = useState({ name: '', email: '', points: 0 });
-  const [newTransaction, setNewTransaction] = useState({
-    userId: '',
-    type: '',
-    points: 0,
-    description: ''
-  });
+  const [error, setError] = useState(null);
+
+  const [newUser, setNewUser] = useState({ name: '', email: '', points: 0});
+  const [newTransaction, setNewTransaction] = useState({userId: '', type: '', points: 0,description: ''});
 
   useEffect(() => {
     fetchUsers();
@@ -51,8 +48,13 @@ const Dashboard = () => {
         body: JSON.stringify(newUser),
       });
       if (res.ok) {
-        setNewUser({ name: '', email: '', points: 0 });
+        //Clears the new user variable
+        setNewUser({ name: '', email: '', points: 0});
         fetchUsers();
+        setError(null);
+      } else {
+        setError("Failed to add user, User probably exists.");
+        throw new Error(`HTTP error. Failed to add user, User probably exists. status: ${res.status}`);
       }
     } catch (error) {
       console.error('Error adding user:', error);
@@ -158,7 +160,7 @@ const Dashboard = () => {
                         <Badge variant="secondary">{user.points}</Badge>
                       </td>
                       <td className="p-2">
-                        {new Date(user.createdAt).toLocaleDateString()}
+                        {new Date(user.joinDate).toLocaleDateString()}
                       </td>
                       <td className="p-2">
                         <Button
@@ -263,6 +265,7 @@ const Dashboard = () => {
                       required
                     />
                   </div>
+                  {error && (<p className="text-red-500">{error}</p>)}
                   <Button type="submit">Add User</Button>
                 </form>
               </CardContent>
@@ -305,7 +308,8 @@ const Dashboard = () => {
                     >
                       <option value="">Select Type</option>
                       <option value="purchase">Purchase</option>
-                      <option value="reward">Reward</option>
+                      <option value="subscription">Subscription</option>
+                      <option value="reward_redemption">Reward Redemption</option>
                       <option value="bonus">Bonus</option>
                       <option value="event">Event</option>
                     </select>
