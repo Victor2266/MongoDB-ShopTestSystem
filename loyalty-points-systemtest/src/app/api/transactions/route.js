@@ -32,7 +32,7 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }
 
-    user.points += points;  //Update the user points 
+    user.points = Number(user.points) + Number(points);  //Update the user points 
     await user.save();      //Save the user document with the new points
 
     return new Response(JSON.stringify(transaction), { status: 201 });

@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   const [newUser, setNewUser] = useState({ name: '', email: '', points: 0});
-  const [newTransaction, setNewTransaction] = useState({userId: '', type: '', points: 0,description: ''});
+  const [newTransaction, setNewTransaction] = useState({userId: '', type: '', points: 0, description: ''});
 
   useEffect(() => {
     fetchUsers();
