@@ -24,7 +24,7 @@ export async function POST(req) {
   const { userId, points, type, description } = body;
 
   try {
-    const transaction = new Transaction(body);
+    const transaction = new Transaction({ userId, points, type, description });
     await transaction.save();
 
     const user = await User.findById(userId); //Find the corresponding user
