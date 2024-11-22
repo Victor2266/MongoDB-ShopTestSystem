@@ -25,12 +25,18 @@ const Dashboard = () => {
     fetchTransactions();
   }, []);
 
-  const fetchUsers = () => {
+  /*const fetchUsers = () => {
     fetch("/api/users")
       .then((res) => res.json())
       .then(setUsers);
+  };*/
+
+  const fetchUsers = async () => {
+    const res = await fetch('https://client-account-hub.onrender.com/get_all_users');
+    const data = await res.json();
+    setUsers(data.user);
   };
-  
+
   const fetchTransactions = () => {
     fetch("/api/transactions")
       .then((res) => res.json())
@@ -115,7 +121,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">
-                  {users.reduce((sum, user) => sum + (user.points || 0), 0)}
+                  {users.reduce((sum, user) => sum + (user.points_balance || 0), 0)}
                 </div>
               </CardContent>
             </Card>
@@ -157,7 +163,7 @@ const Dashboard = () => {
                       <td className="p-2">{user.name}</td>
                       <td className="p-2">{user.email}</td>
                       <td className="p-2">
-                        <Badge variant="secondary">{user.points}</Badge>
+                        <Badge variant="secondary">{user.points_balance}</Badge>
                       </td>
                       <td className="p-2">
                         {new Date(user.joinDate).toLocaleDateString()}
